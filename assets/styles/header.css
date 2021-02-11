@@ -1,0 +1,162 @@
+.header {
+    height: 72px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.header-body {
+    max-width: 1000px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.header-logo {
+    height: 52px;
+    width: 52px;
+}
+
+.header-log-out {
+    margin-left: auto;
+}
+
+.header-menu-button[type=checkbox] {
+    display: none;
+}
+
+.header-menu-label {
+    display: none;
+    cursor: pointer;
+    user-select: none;
+}
+
+.header-body {
+    width: 100%;
+    position: relative;
+}
+
+.header-menu-dropdown {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+}
+
+.header-menu-dropdown > li {
+    position: relative;
+    padding: 0 15px;
+    font-size: 18px;
+    text-align: center;
+    cursor: pointer;
+    transition-duration: .3s;
+    transition-timing-function: ease-in-out;
+    transition-property: box-shadow, color;
+}
+
+.header-menu-dropdown > li:last-child {
+    margin-left: auto;
+}
+
+.header-menu-dropdown > li:hover > a {
+    color: #4C75A3;
+}
+
+/* small screens */
+@media (max-width: 800px) {
+    .header {
+        padding: 0;
+    }
+
+    .header-logo {
+        display: none;
+    }
+
+    .header-body {
+        display: block;
+        padding: 0;
+    }
+
+    .header-logo-mobile {
+        height: 45px;
+        width: 45px;
+        margin-top: 3px;
+    }
+
+    .header-menu-dropdown {
+        height: 100%;
+        display: none;
+    }
+
+    .header-menu-label {
+        width: 100%;
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+        margin: 0;
+        border: 1px solid rgba(60, 60, 60, 0.2);
+    }
+
+    .header-menu-label:after {
+        content: "\2261";
+        font-size: 40px;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .header-menu-button[type=checkbox]:checked ~ .header-menu-label:after {
+        content: "\02df";
+        color: #222;
+        top: 13px;
+        transform: translateY(0);
+    }
+
+    .header-menu-button[type=checkbox]:checked ~ .header-menu-dropdown {
+        display: inline-table;
+        padding: 0;
+        background-color: #a7dfff;
+    }
+
+    .header-menu-button[type=checkbox]:checked ~ .header-menu-dropdown > li {
+        width: 100%;
+        padding: 5px 10px;
+        opacity: .8;
+        text-align: left;
+        cursor: pointer;
+        float: left;
+        transition-duration: .3s;
+        transition-timing-function: ease-in-out;
+        transition-property: box-shadow, color;
+        box-shadow: 0 0.05em 0.25em 0 rgb(0 0 0 / 35%);
+    }
+
+    .header-menu-button[type=checkbox]:checked ~ .header-menu-dropdown > li:after {
+        width: fit-content;
+        position: absolute;
+        top: 4px;
+        right: 10px;
+        left: unset;
+        bottom: unset;
+        content: "\203A";
+        font-size: 16px;
+        background-color: transparent;
+    }
+
+    .header-menu-button[type=checkbox]:checked ~ .header-menu-dropdown > li:hover:after {
+        color: #fff;
+    }
+
+    .header-menu-button[type=checkbox]:checked ~ .header-menu-dropdown > li:hover {
+        background-color: #5dc4ff;
+    }
+
+    .header-menu-dropdown > li:hover > a {
+        color: #fff;
+    }
+}

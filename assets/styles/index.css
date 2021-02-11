@@ -1,8 +1,2 @@
-@font-face {
-    font-family : 'Roboto';
-    src : url('../fonts/Roboto-Regular.ttf');
-}
-
-body {
-    font-family: 'Roboto', 'serif';
-}
+@import url('normalize.css');
+@import url('header.css');

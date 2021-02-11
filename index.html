@@ -35,14 +35,33 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="assets/images/favicons/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicons/favicon-16x16.png">
-    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileColor" content="#4C75A3">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#4C75A3">
 
-    <link rel="stylesheet" href="assets/styles/normalize.css">
     <link rel="stylesheet" href="assets/styles/index.css">
 </head>
 <body>
+<header class="header">
+    <nav class="header-body">
+        <a href="index.html">
+            <img class="header-logo" src="assets/images/vk-icon.png" alt="">
+        </a>
+        <input class="header-menu-button" type="checkbox" id="header-menu-button">
+        <label class="header-menu-label" for="header-menu-button" onclick>
+            <a href="index.html">
+                <img class="header-logo-mobile" src="assets/images/vk-icon.png" alt="">
+            </a>
+        </label>
+        <ul class="header-menu-dropdown">
+            <li><a href="#" class="header-menu-item">Menu item 1</a></li>
+            <li><a href="#" class="header-menu-item">Menu item 2</a></li>
+            <li><a href="#" class="header-menu-item">Menu item 3</a></li>
+            <li><a href="#" class="header-menu-item">Menu item 4</a></li>
+            <li><a href="#" class="header-menu-item">LOG IN/SIGN UP</a></li>
+        </ul>
+    </nav>
+</header>
 <script src="scripts/index.js"></script>
 </body>
 </html>
