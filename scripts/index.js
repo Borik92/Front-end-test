@@ -1,9 +1,10 @@
 window.onload = function () {
-    const blockBody = document.querySelector('#block-body');
-    const loader = document.querySelector('#loader');
-    const inputLength = document.querySelector('#filter-input-length');
-    const inputLimit = document.querySelector('#filter-input-limit');
-    const filterButton = document.querySelector('#filter-button');
+    const blockProgressElement = document.querySelector('#block-progress');
+    const blockBodyElement = document.querySelector('#block-body');
+    const loaderElement = document.querySelector('#loader');
+    const inputLengthElement = document.querySelector('#filter-input-length');
+    const inputLimitElement = document.querySelector('#filter-input-limit');
+    const filterButtonElement = document.querySelector('#filter-button');
     let isLoading = false;
 
     const onInput = (event) => {
@@ -16,59 +17,76 @@ window.onload = function () {
         checkFormValidation();
     }
 
-    const onStart = (event) => {
+    const onStart = async (event) => {
         if (isLoading || !checkFormValidation()) {
             return;
         }
 
-        isLoading = true;
         const result  = [];
-        for (let i = 0; i < +inputLength.value; i++) {
+        const limit = +inputLimitElement.value;
+        const length = +inputLengthElement.value;
+        let arr = [];
+        let progressCounter = 0;
+        isLoading = true;
+        event.target.classList.add('disabled-button');
+        loaderElement.classList.remove('hide-loader');
+        blockBodyElement.innerHTML = '';
+        blockProgressElement.innerText = '';
+
+        for (let i = 0; i < +inputLengthElement.value; i++) {
             const obj = {
                 index: i + 1,
-                title: textList[Math.floor(Math.random() * (textList.length - 1))].slice(0, 200),
+                title: `${i + 1}. ${textList[Math.floor(Math.random() * (textList.length - 1))].slice(0, 200)}`,
                 text: textList[Math.floor(Math.random() * (textList.length - 1))],
             };
             result.push(obj);
         }
 
-        event.target.classList.add('disabled-button');
-        loader.classList.remove('hide-loader');
-        blockBody.innerHTML = '';
-        Promise.all(queue(result, mapper, +inputLimit.value)).then(data => {
-            isLoading = false;
-            const progress = document.createElement('p');
-            progress.innerText = `Progress ${data.length} of ${inputLength.value}`;
-            progress.classList.add('block-progress');
-            blockBody.append(progress);
-            data.forEach(textObj => {
-                const article = document.createElement('article');
-                const h3 = document.createElement('h3');
-                const p = document.createElement('p');
+        for (let i = 0; i < length; i++) {
+            const article = document.createElement('article');
+            article.setAttribute('id', `block-item-${i + 1}`);
+            blockBodyElement.append(article);
+        }
 
-                article.classList.add('block-item');
-                h3.classList.add('block-item-title');
-                p.classList.add('block-item-text');
-                h3.innerText = textObj.title;
-                p.innerText = textObj.text;
-                blockBody.append(article);
-                article.append(h3, p);
-                h3.setAttribute('title', textObj.title);
+        await Promise.all(queue(result, mapper).map(async promiseObj => {
+            await promiseObj.then(data => {
+                arr.push(data);
+                if (arr.length === limit || length - progressCounter < limit) {
+                    isLoading = false;
+                    arr.forEach(textObj => {
+                        const article = blockBodyElement.querySelector(`#block-item-${textObj.index}`);
+                        const h3 = document.createElement('h3');
+                        const p = document.createElement('p');
+
+                        article.classList.add('block-item');
+                        h3.classList.add('block-item-title');
+                        p.classList.add('block-item-text');
+                        h3.innerText = textObj.title;
+                        p.innerText = textObj.text;
+                        article.append(h3, p);
+                        h3.setAttribute('title', textObj.title);
+                        blockProgressElement.innerText =
+                            `Progress ${++progressCounter} of ${inputLengthElement.value}`;
+                    });
+
+                    arr = [];
+                }
             });
-            event.target.classList.remove('disabled-button');
-            loader.classList.add('hide-loader');
-        });
+        }));
+
+        event.target.classList.remove('disabled-button');
+        loaderElement.classList.add('hide-loader');
     }
 
     initProject();
 
-    function queue(arr, func, limit) {
-        return func(arr, limit);
+    function queue(arr, func) {
+        return func(arr);
     }
 
-    function mapper(arr, limit) {
+    function mapper(arr) {
         const result = [];
-        for (let i = 0; i < limit; i++) {
+        for (let i = 0; i < arr.length; i++) {
             result.push(new Promise((resolve) => {
                 setTimeout(() => resolve(arr[i]), Math.round(Math.random() * 9000) + 1000);
             }));
@@ -79,20 +97,20 @@ window.onload = function () {
 
 // Returns true if forms are valid
     function checkFormValidation() {
-        const length = +inputLength.value;
-        const limit = +inputLimit.value;
+        const length = +inputLengthElement.value;
+        const limit = +inputLimitElement.value;
         const isValid = length > 0 && limit > 0 && length >= limit;
         if (isValid) {
-            filterButton.classList.remove('disabled-button');
+            filterButtonElement.classList.remove('disabled-button');
         } else {
-            filterButton.classList.add('disabled-button');
+            filterButtonElement.classList.add('disabled-button');
         }
         return isValid;
     }
 
     function initProject() {
-        filterButton.addEventListener('click', onStart);
-        inputLength.addEventListener('input', onInput);
-        inputLimit.addEventListener('input', onInput);
+        filterButtonElement.addEventListener('click', onStart);
+        inputLengthElement.addEventListener('input', onInput);
+        inputLimitElement.addEventListener('input', onInput);
     }
 }
