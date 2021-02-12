@@ -52,7 +52,6 @@ window.onload = function () {
             await promiseObj.then(data => {
                 arr.push(data);
                 if (arr.length === limit || length - progressCounter < limit) {
-                    isLoading = false;
                     arr.forEach(textObj => {
                         const article = blockBodyElement.querySelector(`#block-item-${textObj.index}`);
                         const h3 = document.createElement('h3');
@@ -74,6 +73,7 @@ window.onload = function () {
             });
         }));
 
+        isLoading = false;
         event.target.classList.remove('disabled-button');
         loaderElement.classList.add('hide-loader');
     }
