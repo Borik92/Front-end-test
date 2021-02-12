@@ -13,6 +13,7 @@
     padding: 0 20px;
     background-color: #ffffff;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 50;
 }
 
 .filter-body {
@@ -78,8 +79,10 @@
 
 .block {
     width: 100%;
+    position: relative;
     display: flex;
     justify-content: center;
+    padding-top: 40px;
 }
 
 .block-body {
@@ -115,7 +118,9 @@
 
 .block-progress {
     width: 100%;
-    margin-top: 20px;
+    position: absolute;
+    left: 0;
+    top: 20px;
     font-weight: bold;
     font-size: 14px;
     line-height: 16px;
@@ -125,7 +130,7 @@
 
 .loader {
     display: inline-block;
-    position: absolute;
+    position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
