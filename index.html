@@ -62,7 +62,38 @@
         </ul>
     </nav>
 </header>
+<main class="main-content">
+    <div class="filter">
+        <form class="filter-body">
+            <div class="filter-input-container">
+                <div class="filter-input-wrapper">
+                    <input
+                        id="filter-input-length"
+                        autocomplete="off"
+                        class="filter-input"
+                        type="number"
+                        name="filter-length">
+                    <label class="input-placeholder" for="filter-input-length">Length</label>
+                </div>
+                <div class="filter-input-wrapper">
+                    <input
+                        id="filter-input-limit"
+                        autocomplete="off"
+                        class="filter-input"
+                        type="number"
+                        name="filter-limit">
+                    <label class="input-placeholder" for="filter-input-limit">Limit</label>
+                </div>
+            </div>
+            <button id="filter-button" class="filter-button disabled-button" type="button">Start</button>
+        </form>
+    </div>
 
+    <div class="block">
+        <div id="loader" class="loader hide-loader"><div></div><div></div><div></div><div></div></div>
+        <div id="block-body" class="block-body"></div>
+    </div>
+</main>
 <footer class="footer">
     <div class="footer-body">
         <div class="footer-menu">
@@ -90,6 +121,7 @@
         </div>
     </div>
 </footer>
+<script src="scripts/text-db.js"></script>
 <script src="scripts/index.js"></script>
 </body>
 </html>
