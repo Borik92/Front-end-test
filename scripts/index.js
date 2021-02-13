@@ -64,7 +64,7 @@ window.onload = function () {
                         article.append(h3, p);
                         h3.setAttribute('title', textObj.title);
                         blockProgressElement.innerText =
-                            `Progress ${++progressCounter} of ${inputLengthElement.value}`;
+                            `Progress ${++progressCounter} of ${length}`;
                     });
 
                     arr = [];
