@@ -27,23 +27,22 @@ window.onload = function () {
         const length = +inputLengthElement.value;
         let arr = [];
         let progressCounter = 0;
+
         isLoading = true;
         event.target.classList.add('disabled-button');
         loaderElement.classList.remove('hide-loader');
         blockBodyElement.innerHTML = '';
         blockProgressElement.innerText = '';
 
-        for (let i = 0; i < +inputLengthElement.value; i++) {
+        for (let i = 0; i < length; i++) {
+            const article = document.createElement('article');
             const obj = {
                 index: i + 1,
                 title: `${i + 1}. ${textList[Math.floor(Math.random() * (textList.length - 1))].slice(0, 200)}`,
                 text: textList[Math.floor(Math.random() * (textList.length - 1))],
             };
-            result.push(obj);
-        }
 
-        for (let i = 0; i < length; i++) {
-            const article = document.createElement('article');
+            result.push(obj);
             article.setAttribute('id', `block-item-${i + 1}`);
             blockBodyElement.append(article);
         }
